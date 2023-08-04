@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { appComponentService } from './app.service';
-import * as Leaflet from 'leaflet';
-import * as L from 'leaflet';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -11,17 +9,26 @@ import * as L from 'leaflet';
 export class AppComponent implements OnInit {
   lat: any;
   lon: any;
-  weather: any;
-  celcious: any;
-  date = new Date();
   map: any;
-  markers: Leaflet.Marker[] = [];
+  date: any;
   options: any;
-  center: any;
+  weather: any;
+  weather1: any;
+  weather2: any;
+  celcious: any;
+  searchValue: any;
   constructor(private weatherService: appComponentService) {}
   ngOnInit(): void {
     this.getWeather();
-    // this.initMap();
+    this.get5DaysWeather();
+    this.interval;
+    setInterval(() => {
+      this.interval();
+    }, 1000);
+  }
+
+  interval() {
+    this.date = new Date();
   }
 
   getWeather() {
@@ -31,35 +38,33 @@ export class AppComponent implements OnInit {
         this.lon = success.coords.longitude;
 
         this.weatherService.getWeather(this.lat, this.lon).subscribe((data) => {
-          console.log('data.......................', data);
+          // console.log('data.......................', data);
           this.weather = data;
-          let faren = this.weather.main.temp;
-          this.celcious = (5 / 9) * (faren - 32);
         });
       });
     }
   }
 
-  // initMap(): void {
-  //   this.map = L.map('map').setView([this.lat, this.lon], 8);
-  //   console.log(this.map);
+  get5DaysWeather() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.watchPosition((success) => {
+        this.lat = success.coords.latitude;
+        this.lon = success.coords.longitude;
 
-  //   const tiles = L.tileLayer(
-  //     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-  //     {
-  //       attribution:
-  //         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  //     }
-  //   ).addTo(this.map);
-
-  //   tiles.addTo(this.map);
-
-  //   (L.Control as any).geocoder().addTo(this.map);
-  // }
+        this.weatherService
+          .get5DaysWeather(this.lat, this.lon)
+          .subscribe((data) => {
+            // console.log('data1.......................', data);
+            this.weather1 = data;
+          });
+      });
+    }
+  }
 
   getCity(city: any) {
     this.weatherService.getCity(city).subscribe((data) => {
       this.weather = data;
+      this.searchValue = '';
     });
   }
 }

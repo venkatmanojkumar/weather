@@ -9,12 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   lat: any;
   lon: any;
-  map: any;
   date: any;
-  options: any;
   weather: any;
   weather1: any;
-  weather2: any;
+  isLoading: boolean = false;
   celcious: any;
   searchValue: any;
   constructor(private weatherService: appComponentService) {}
@@ -38,8 +36,8 @@ export class AppComponent implements OnInit {
         this.lon = success.coords.longitude;
 
         this.weatherService.getWeather(this.lat, this.lon).subscribe((data) => {
-          // console.log('data.......................', data);
           this.weather = data;
+          this.isLoading = false;
         });
       });
     }
@@ -54,16 +52,24 @@ export class AppComponent implements OnInit {
         this.weatherService
           .get5DaysWeather(this.lat, this.lon)
           .subscribe((data) => {
-            // console.log('data1.......................', data);
+            console.log('data1.......................', data);
             this.weather1 = data;
+            this.isLoading = false;
           });
       });
     }
   }
 
-  getCity(city: any) {
-    this.weatherService.getCity(city).subscribe((data) => {
+  getWeatherCity(city: any) {
+    this.weatherService.getWeatherCity(city).subscribe((data) => {
       this.weather = data;
+      this.searchValue = '';
+    });
+  }
+
+  get5DaysWeatherCity(city: any) {
+    this.weatherService.get5DaysWeatherCity(city).subscribe((data) => {
+      this.weather1 = data;
       this.searchValue = '';
     });
   }

@@ -1,18 +1,15 @@
 <div class="d-flex">
   <div class="container1">
-    <div class="d-flex justify-content-around text-center pt-3 text-white">
+    <div class="d-flex justify-content-between text-center pt-3 text-white">
       <div class="w-pre-sun1">
-        <!-- <button id="search-button" type="button" class="btn btn-outline-primary">
-          Download
-        </button>  -->
         <img src="../assets/images/openweather-logo.png" class="w-logo">
       </div>
       <div class="w-weather">
         <h2>Weather forcast</h2>
       </div>
-      <div class="d-flex w-input w-pre-sun1">
-  <input id="search-input" type="search" id="form1" class="form-control transparent-input text-white" [(ngModel)]="searchValue" #userInput placeholder="search" (keyup.enter)="getCity(userInput.value)"/>
-  <button id="search-button" type="button" class="btn btn-outline-primary" (click)="getCity(userInput.value)">
+      <div class="d-flex w-input w-pre-sun2">
+  <input id="search-input" type="search" id="form1" class="form-control transparent-input text-white" [(ngModel)]="searchValue" #userInput placeholder="search" (keyup.enter)="getWeatherCity(userInput.value)" (keyup.enter)="get5DaysWeatherCity(userInput.value)"/>
+  <button id="search-button" type="button" class="btn btn-outline-primary" (click)="getWeatherCity(userInput.value)" (click)="get5DaysWeatherCity(userInput.value)">
     Search
   </button>
 </div>
@@ -21,60 +18,74 @@
     
       <div class="d-flex flex-column justify-content-center mt-2">
         <div class="d-flex flex-column justify-content-center mt-2 align-items-center w-pre-sun">
-          <h3>{{ weather1.list[3].dt_txt | date:'EEEE' }}</h3>
-          <h3>{{ weather1.list[3].dt_txt | date:'d MMMM y' }}</h3>
-          <img src="http://openweathermap.org/img/w/{{weather1.list[3].weather[0].icon}}.png" class="w-pre-cloud">
-            <h5 class="mb-0 w-celcious">{{(5 / 9) * (weather1.list[3].main.temp - 32) | number : '1.2-2'}} °C</h5>
+          <div *ngIf="isLoading">
+            <h2>Loading...</h2>
+          </div>
+          <div class="text-center" *ngIf="!isLoading">
+          <h3>{{ weather1?.list[6].dt_txt | date:'EEEE' }}</h3>
+          <h3>{{ weather1?.list[6].dt_txt | date:'d MMMM y' }}</h3>
+          <img src="http://openweathermap.org/img/w/{{weather1?.list[6].weather[0].icon}}.png" class="w-pre-cloud">
+            <h5 class="mb-0 w-celcious">{{(5 / 9) * (weather1?.list[6].main.temp - 32) | number : '1.2-2'}} °C</h5>
             <div class="d-flex justify-content-center mt-2 align-items-center">
               <img src="../assets/images/wind-direction-icon.svg" class="w-pre-icon">
               <h5 class="ms-2 mb-0">Wind<span class="ms-1">:</span></h5>
-              <h5 class="ms-2 mb-0">{{weather1.list[3].wind.speed}} km/hr</h5>
+              <h5 class="ms-2 mb-0">{{weather1?.list[6].wind.speed}} km/hr</h5>
             </div>
             <div class="d-flex justify-content-center mt-2 align-items-center">
               <img src="../assets/images/WeatherIcon (3).svg" class="w-pre-icon">
               <h5 class="ms-2 mb-0">Pressure<span class="ms-1">:</span></h5>
-              <h5 class="ms-2 mb-0">{{weather1.list[3].main.pressure}} hpa</h5>
+              <h5 class="ms-2 mb-0">{{weather1?.list[6].main.pressure}} hpa</h5>
             </div>
             <div class="d-flex justify-content-center mt-2 align-items-center">
               <img src="../assets/images/hum.svg" class="w-pre-icon">
               <h5 class="ms-2 mb-0">Humidity<span class="ms-1">:</span></h5>
-              <h5 class="ms-2 mb-0">{{weather1.list[3].main.humidity}} %</h5>
+              <h5 class="ms-2 mb-0">{{weather1?.list[6].main.humidity}} %</h5>
+            </div>
             </div>
         </div>
         <div class="d-flex flex-column justify-content-center mt-2 align-items-center w-pre-sun">
-          <h3>{{ weather1.list[11].dt_txt | date:'EEEE' }}</h3>
-          <h3>{{ weather1.list[11].dt_txt | date:'d MMMM y'}}</h3>
-          <img src="http://openweathermap.org/img/w/{{weather1.list[11].weather[0].icon}}.png" class="w-pre-cloud">
-            <h5 class="mb-0 w-celcious">{{(5 / 9) * (weather1.list[11].main.temp - 32) | number : '1.2-2'}} °C</h5>
+          <div *ngIf="isLoading">
+            <h2>Loading...</h2>
+          </div>
+          <div class="text-center" *ngIf="!isLoading">
+          <h3>{{ weather1?.list[14].dt_txt | date:'EEEE' }}</h3>
+          <h3>{{ weather1?.list[14].dt_txt | date:'d MMMM y'}}</h3>
+          <img src="http://openweathermap.org/img/w/{{weather1?.list[14].weather[0].icon}}.png" class="w-pre-cloud">
+            <h5 class="mb-0 w-celcious">{{(5 / 9) * (weather1?.list[14].main.temp - 32) | number : '1.2-2'}} °C</h5>
             <div class="d-flex justify-content-center mt-2 align-items-center">
               <img src="../assets/images/wind-direction-icon.svg" class="w-pre-icon">
               <h5 class="ms-2 mb-0">Wind<span class="ms-1">:</span></h5>
-              <h5 class="ms-2 mb-0">{{weather1.list[11].wind.speed}} km/hr</h5>
+              <h5 class="ms-2 mb-0">{{weather1?.list[14].wind.speed}} km/hr</h5>
             </div>
             <div class="d-flex justify-content-center mt-2 align-items-center">
               <img src="../assets/images/WeatherIcon (3).svg" class="w-pre-icon">
               <h5 class="ms-2 mb-0">Pressure<span class="ms-1">:</span></h5>
-              <h5 class="ms-2 mb-0">{{weather1.list[11].main.pressure}} hpa</h5>
+              <h5 class="ms-2 mb-0">{{weather1?.list[14].main.pressure}} hpa</h5>
             </div>
             <div class="d-flex justify-content-center mt-2 align-items-center">
               <img src="../assets/images/hum.svg" class="w-pre-icon">
               <h5 class="ms-2 mb-0">Humidity<span class="ms-1">:</span></h5>
-              <h5 class="ms-2 mb-0">{{weather1.list[11].main.humidity}} %</h5>
+              <h5 class="ms-2 mb-0">{{weather1?.list[14].main.humidity}} %</h5>
             </div>
+          </div>
         </div>
       </div>
     <div class="d-flex flex-column align-items-center w-content">
+      <div *ngIf="isLoading">
+        <h3>Loading...</h3>
+      </div>
+      <div *ngIf="!isLoading">
       <div class="d-flex justify-content-center align-items-center">
       <div class="d-flex justify-content-center mt-3">
         <img src="../assets/images/Frame.png" class="w-location mt-2">
-      <div class="text-center text-white ms-1"><h1>{{weather.name}}, {{weather.sys.country}}</h1></div>
+      <div class="text-center text-white ms-1"><h1>{{weather?.name}}, {{weather?.sys.country}}</h1></div>
 </div>
 </div>
-      <div>
-        <img src="http://openweathermap.org/img/w/{{weather.weather[0].icon}}.png" class="w-cloud">
+      <div class="text-center">
+        <img src="http://openweathermap.org/img/w/{{weather?.weather[0].icon}}.png" class="w-cloud">
       </div>
       <div>
-        <h5 class="mb-0 w-celcious display-1 text-center">{{(5 / 9) * (weather.main.temp - 32) | number : '1.2-2'}} °C</h5>
+        <h5 class="mb-0 w-celcious display-1 text-center">{{(5 / 9) * (weather?.main.temp - 32) | number : '1.2-2'}} °C</h5>
         <div class="d-flex flex-column mt-2 text-danger">
           <div class="d-flex">
             <h3>{{ date | date:'d MMMM y'}}</h3>
@@ -88,23 +99,23 @@
     <div class="d-flex justify-content-center mt-2 align-items-center">
       <img src="../assets/images/wind-direction-icon.svg" class="w-icon">
       <h5 class="ms-2 mb-0">Wind Speed<span class="ms-1">:</span></h5>
-      <h5 class="ms-2 mb-0">{{weather.wind.speed}} km/hr</h5>
+      <h5 class="ms-2 mb-0">{{weather?.wind.speed}} km/hr</h5>
     </div>
     <div class="d-flex justify-content-center mt-2 align-items-center">
       <img src="../assets/images/WeatherIcon (3).svg" class="w-icon">
       <h5 class="ms-2 mb-0">Pressure<span class="ms-1">:</span></h5>
-      <h5 class="ms-2 mb-0">{{weather.main.pressure}} hpa</h5>
+      <h5 class="ms-2 mb-0">{{weather?.main.pressure}} hpa</h5>
     </div>
     <div class="d-flex justify-content-center mt-2 align-items-center">
       <img src="../assets/images/hum.svg" class="w-icon">
       <h5 class="ms-2 mb-0">Humidity<span class="ms-1">:</span></h5>
-      <h5 class="ms-2 mb-0">{{weather.main.humidity}} %</h5>
+      <h5 class="ms-2 mb-0">{{weather?.main.humidity}} %</h5>
     </div>
     <div class="d-flex justify-content-center">
     <div class="d-flex flex-column justify-content-center mt-2 align-items-center w-sun">
       <div class="d-flex justify-content-center">
       <h5>Morning<span class="ms-1">-</span></h5>
-      <h5 class="ms-2 mb-0">{{weather.sys.sunrise * 1000 | date:'H:mm a'}}</h5>
+      <h5 class="ms-2 mb-0">{{weather?.sys.sunrise * 1000 | date:'H:mm a'}}</h5>
       </div>
       <img src="../assets/images/WeatherIcon.svg" class="w-sunrise mt-2">
       <h5>Sunrise</h5>
@@ -112,60 +123,68 @@
     <div class="d-flex flex-column justify-content-center mt-2 align-items-center ms-2 w-sun">
       <div class="d-flex justify-content-center">
       <h5>Evening<span class="ms-1">-</span></h5>
-      <h5 class="ms-2 mb-0">{{weather.sys.sunset * 1000 | date:'H:mm a'}}</h5>
+      <h5 class="ms-2 mb-0">{{weather?.sys.sunset * 1000 | date:'H:mm a'}}</h5>
       </div>
       <img src="../assets/images/WeatherIcon (2).svg" class="w-sunset mt-2">
       <h5>Sunset</h5>
     </div>
     </div>
     </div>
+    </div>
     <div class="d-flex flex-column justify-content-center mt-2">
       <div class="d-flex flex-column justify-content-center mt-2 align-items-center w-pre-sun">
-        <h3>{{ weather1.list[6].dt_txt | date:'EEEE' }}</h3>
-        <h3>{{ weather1.list[6].dt_txt | date:'d MMMM y' }}</h3>
-        <img src="http://openweathermap.org/img/w/{{weather1.list[6].weather[0].icon}}.png" class="w-pre-cloud">
-          <h5 class="mb-0 w-celcious">{{(5 / 9) * (weather1.list[6].main.temp - 32) | number : '1.2-2'}} °C</h5>
+        <div *ngIf="isLoading">
+          <h2>Loading...</h2>
+        </div>
+        <div class="text-center" *ngIf="!isLoading">
+        <h3>{{ weather1?.list[26].dt_txt | date:'EEEE' }}</h3>
+        <h3>{{ weather1?.list[26].dt_txt | date:'d MMMM y' }}</h3>
+        <img src="http://openweathermap.org/img/w/{{weather1?.list[26].weather[0].icon}}.png" class="w-pre-cloud">
+          <h5 class="mb-0 w-celcious">{{(5 / 9) * (weather1?.list[6].main.temp - 32) | number : '1.2-2'}} °C</h5>
           <div class="d-flex justify-content-center mt-2 align-items-center">
             <img src="../assets/images/wind-direction-icon.svg" class="w-pre-icon">
             <h5 class="ms-2 mb-0">Wind<span class="ms-1">:</span></h5>
-            <h5 class="ms-2 mb-0">{{weather1.list[6].wind.speed}} km/hr</h5>
+            <h5 class="ms-2 mb-0">{{weather1?.list[26].wind.speed}} km/hr</h5>
           </div>
           <div class="d-flex justify-content-center mt-2 align-items-center">
             <img src="../assets/images/WeatherIcon (3).svg" class="w-pre-icon">
             <h5 class="ms-2 mb-0">Pressure<span class="ms-1">:</span></h5>
-            <h5 class="ms-2 mb-0">{{weather1.list[6].main.pressure}} hpa</h5>
+            <h5 class="ms-2 mb-0">{{weather1?.list[26].main.pressure}} hpa</h5>
           </div>
           <div class="d-flex justify-content-center mt-2 align-items-center">
             <img src="../assets/images/hum.svg" class="w-pre-icon">
             <h5 class="ms-2 mb-0">Humidity<span class="ms-1">:</span></h5>
-            <h5 class="ms-2 mb-0">{{weather1.list[6].main.humidity}} %</h5>
+            <h5 class="ms-2 mb-0">{{weather1?.list[26].main.humidity}} %</h5>
+          </div>
           </div>
       </div>
       <div class="d-flex flex-column justify-content-center mt-2 align-items-center w-pre-sun">
-        <h3>{{ weather1.list[14].dt_txt | date:'EEEE' }}</h3>
-        <h3>{{ weather1.list[14].dt_txt | date:'d MMMM y'}}</h3>
-        <img src="http://openweathermap.org/img/w/{{weather1.list[14].weather[0].icon}}.png" class="w-pre-cloud">
-          <h5 class="mb-0 w-celcious">{{(5 / 9) * (weather1.list[14].main.temp - 32) | number : '1.2-2'}} °C</h5>
+        <div *ngIf="isLoading">
+          <h2>Loading...</h2>
+        </div>
+        <div class="text-center" *ngIf="!isLoading">
+        <h3>{{ weather1?.list[34].dt_txt | date:'EEEE' }}</h3>
+        <h3>{{ weather1?.list[34].dt_txt | date:'d MMMM y'}}</h3>
+        <img src="http://openweathermap.org/img/w/{{weather1?.list[34].weather[0].icon}}.png" class="w-pre-cloud">
+          <h5 class="mb-0 w-celcious">{{(5 / 9) * (weather1?.list[34].main.temp - 32) | number : '1.2-2'}} °C</h5>
           <div class="d-flex justify-content-center mt-2 align-items-center">
             <img src="../assets/images/wind-direction-icon.svg" class="w-pre-icon">
             <h5 class="ms-2 mb-0">Wind<span class="ms-1">:</span></h5>
-            <h5 class="ms-2 mb-0">{{weather1.list[14].wind.speed}} km/hr</h5>
+            <h5 class="ms-2 mb-0">{{weather1?.list[34].wind.speed}} km/hr</h5>
           </div>
           <div class="d-flex justify-content-center mt-2 align-items-center">
             <img src="../assets/images/WeatherIcon (3).svg" class="w-pre-icon">
             <h5 class="ms-2 mb-0">Pressure<span class="ms-1">:</span></h5>
-            <h5 class="ms-2 mb-0">{{weather1.list[14].main.pressure}} hpa</h5>
+            <h5 class="ms-2 mb-0">{{weather1?.list[34].main.pressure}} hpa</h5>
           </div>
           <div class="d-flex justify-content-center mt-2 align-items-center">
             <img src="../assets/images/hum.svg" class="w-pre-icon">
             <h5 class="ms-2 mb-0">Humidity<span class="ms-1">:</span></h5>
-            <h5 class="ms-2 mb-0">{{weather1.list[14].main.humidity}} %</h5>
+            <h5 class="ms-2 mb-0">{{weather1?.list[34].main.humidity}} %</h5>
+          </div>
           </div>
       </div>
     </div>
   </div>
-  </div>
-  <div>
-    <div id="map" style="height: 30vh;"></div>
   </div>
 </div>

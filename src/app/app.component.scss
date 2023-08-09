@@ -1,0 +1,210 @@
+@import "../../node_modules/bootstrap/scss/mixins";
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+
+
+.container1 {
+    width: 100vw;
+    padding: 10px 20px 30px;
+    background-size:cover;
+    background-image: url("../assets/images/bg2.jpg");
+}
+
+  .transparent-input {
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 2px;
+ }
+
+ .w-location {
+  width: 35px;
+  height: 35px;
+ }
+
+ .w-sun {
+  width: 228px;
+  height: 170px;
+  flex-shrink: 0;
+  border-radius: 8px;
+background: rgba(255, 255, 255, 0.20);
+filter: blur(0.5692583918571472px);
+ }
+
+ .w-pre-sun {
+  width: 268px;
+  height: 300px;
+  flex-shrink: 0;
+  border-radius: 8px;
+background: rgba(255, 255, 255, 0.20);
+filter: blur(0.5692583918571472px);
+ }
+
+ .w-pre-sun1 {
+  width: 268px;
+ }
+
+ .w-pre-sun2 {
+  width: 268px;
+ }
+
+ .w-sunrise {
+  width: 78px;;
+  height: 56px;
+ }
+
+ .w-sunset {
+  width: 81px;;
+  height: 56px;
+ }
+
+ .w-icon {
+  width: 22px;
+  height: 22px;
+ }
+
+ .w-pre-icon {
+  height: 20px;
+ }
+
+ .w-cloud {
+  width: 143px;
+  height: 140px;
+ }
+
+ .w-weather {
+  width: 448px;
+ }
+
+ .w-input {
+  width: 250px;
+  height: 40px;
+ }
+
+ .w-logo {
+  width: 150px;
+  height: 50px;
+ }
+
+ .form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+
+@media (min-width: 1046px) and (max-width: 1080px) { 
+.w-pre-sun {
+  width: 250px;
+  height: 300px;
+}
+.w-pre-sun1{
+  width:240px
+}
+.w-pre-sun2 {
+  width: 240px;
+ }
+ }
+
+ @media (min-width: 992px) and (max-width: 1047px) { 
+  .w-pre-sun {
+    width: 240px;
+    height: 300px;
+    h3 {
+      font-size: 25px;
+    }
+    h5 {
+      font-size: 17px;
+    }
+  }
+
+  .w-pre-sun1{
+    width:240px
+  }
+
+  .w-pre-sun2 {
+    width: 240px;
+   }
+
+  .w-sun {
+    width: 220px;
+    height: 170px;
+  }
+   }
+
+   @media (min-width: 767px) and (max-width: 901px) { 
+    .w-location {
+      width: 25px;
+      height: 30px;
+     }
+    .w-pre-sun {
+      width: 350px;
+      height: 300px;
+    }
+   } 
+
+   @media (min-width: 900px) and (max-width: 991px) { 
+    .w-location {
+      width: 25px;
+      height: 30px;
+     }
+    .w-pre-sun {
+      width: 400px;
+      height: 350px;
+    }
+   } 
+
+   @media (min-width: 660px) and (max-width: 768px) { 
+    .w-location {
+      width: 25px;
+      height: 30px;
+     }
+    .w-pre-sun {
+      width: 300px;
+      height: 350px;
+    }
+   } 
+
+   @media (min-width: 374px) and (max-width: 425px) { 
+    .w-location {
+      width: 25px;
+      height: 20px;
+     }
+     .w-sun {
+      width: 180px;
+      height: 150px;
+     }
+    .w-pre-sun {
+      width: 280px;
+      height: 300px;
+    }
+   } 
+
+   @media (min-width: 424px) and (max-width: 576px) { 
+    .w-location {
+      width: 25px;
+      height: 30px;
+     }
+
+     .w-sun {
+      width: 200px;
+      height: 150px;
+     }
+
+    .w-pre-sun {
+      width: 400px;
+      height: 350px;
+    }
+    }
+
+    @include media-breakpoint-down(sm) { 
+      .w-pre-sun2 {
+        margin-top: 10px;
+        width: 290px;
+       }
+     }
+
+     @include media-breakpoint-down(lg) { 
+      .container1 {
+        background-image: url("../assets/images/blue.jpg");
+    }
+     }
+   

@@ -9,12 +9,14 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   lat: any;
   lon: any;
+  type: any;
   date: any;
   weather: any;
   weather1: any;
   isLoading: boolean = false;
   celcious: any;
   searchValue: any;
+  weatherHistory: any;
   constructor(private weatherService: appComponentService) {}
   ngOnInit(): void {
     this.getWeather();
@@ -52,7 +54,6 @@ export class AppComponent implements OnInit {
         this.weatherService
           .get5DaysWeather(this.lat, this.lon)
           .subscribe((data) => {
-            console.log('data1.......................', data);
             this.weather1 = data;
             this.isLoading = false;
           });

@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   apiUrl: `https://api.openweathermap.org/data/2.5`,
-  // apiUrl1: `https://api.openweathermap.org/data/2.5/forecast`,
 };
 
 /*
